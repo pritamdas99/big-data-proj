@@ -122,6 +122,8 @@ class SparkHoeffdingEnsemble:
         self.tn = 0
         self.fp = 0
         self.fn = 0
+        self.seen_normal = 0
+        self.seen_anomaly = 0
 
         self.tree_total = [0] * n_trees
         self.tree_correct = [0] * n_trees
@@ -153,6 +155,10 @@ class SparkHoeffdingEnsemble:
 
     def update_metrics(self, y, pred):
         self.total += 1
+        if y == 0:
+            self.seen_normal += 1
+        elif y == 1:
+            self.seen_anomaly += 1
         if pred == y:
             self.correct += 1
         if y == 1 and pred == 1:
@@ -184,6 +190,7 @@ class SparkHoeffdingEnsemble:
             print("Precision:", round(precision, 4))
             print("Recall:", round(recall, 4))
             print("F1:", round(f1, 4))
+            print(f"Seen labels: normal={self.seen_normal}, anomaly={self.seen_anomaly}")
             print(f"Confusion matrix: TP={self.tp}, TN={self.tn}, FP={self.fp}, FN={self.fn}")
 
         for tree_id in range(self.n_trees):
