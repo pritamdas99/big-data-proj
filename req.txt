@@ -1,0 +1,15 @@
+# Machine Learning
+scikit-learn>=1.5.0
+river>=0.22.0
+joblib>=1.4.2
+numpy>=1.26.4
+pandas>=2.2.2
+
+# Kafka
+kafka-python>=2.0.2
+
+# Spark
+pyspark==3.5.1
+
+# Utilities
+pyarrow>=17.0.0
